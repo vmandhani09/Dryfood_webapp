@@ -4,7 +4,7 @@ import ProductCard from '@/Components/ProductCard';
 
 const products = [
   {
-    name: "Ajneer (Figs)",
+    name: "Anjeer (Figs)",
     image: "/products/anjeer.png",
     description: "Premium quality dried figs for daily health and energy.",
     prices: {
