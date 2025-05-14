@@ -1,33 +1,52 @@
+
 const products = [
   {
     name: "Ajneer (Figs)",
-    description: "Premium quality dried figs for daily health and energy.",
     image: "/products/anjeer.png",
+    description: "Premium quality dried figs for daily health and energy.",
     weights: {
-      "250g": 200,
+      "250g": 180,
       "500g": 350,
-      "1kg": 650
-    }
+      "1kg": 680
+    },
+    isFeatured: true,
+    category: "Figs"
   },
   {
     name: "Kaju (Cashew)",
-    description: "Whole cashews packed with taste and nutrition.",
     image: "/products/kaju.png",
+    description: "Whole cashews packed with taste and nutrition.",
     weights: {
-      "250g": 250,
+      "250g": 240,
       "500g": 450,
-      "1kg": 800
-    }
+      "1kg": 880
+    },
+    isFeatured: true,
+    category: "Cashew"
   },
   {
     name: "Badam (Almonds)",
-    description: "Rich, crunchy almonds perfect for snacks or gifts.",
     image: "/products/badam.png",
+    description: "Rich, crunchy almonds perfect for snacks or gifts.",
     weights: {
-      "250g": 230,
+      "250g": 220,
       "500g": 400,
-      "1kg": 750
-    }
+      "1kg": 770
+    },
+    isFeatured: false,
+    category: "Almond"
+  },
+  {
+    name: "Pista (Pistachios)",
+    image: "/products/pista.png",
+    description: "Premium roasted pistachios with a rich taste.",
+    weights: {
+      "250g": 260,
+      "500g": 490,
+      "1kg": 940
+    },
+    isFeatured: false,
+    category: "Pistachio"
   }
 ];
 

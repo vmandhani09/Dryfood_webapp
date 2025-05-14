@@ -1,30 +1,47 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 
-const ProductCard = ({ name, image, description, weights = {} }) => {
+const ProductCard = ({ name, image, description, weights = {}, category, selectedWeightFromPage }) => {
   const weightKeys = Object.keys(weights);
-  const [selectedWeight, setSelectedWeight] = useState(weightKeys[0]);
+  const defaultWeight = selectedWeightFromPage && weightKeys.includes(selectedWeightFromPage)
+    ? selectedWeightFromPage
+    : weightKeys[0];
+
+  const [selectedWeight, setSelectedWeight] = useState(defaultWeight);
+
+  // Update local state if parent-selected weight changes
+  useEffect(() => {
+    if (selectedWeightFromPage && weightKeys.includes(selectedWeightFromPage)) {
+      setSelectedWeight(selectedWeightFromPage);
+    }
+  }, [selectedWeightFromPage, weightKeys]);
 
   return (
-    <div className="max-w-xs bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-      <img className="w-full h-48 object-cover" src={image} alt={name} />
+    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden max-w-sm w-full">
+      <img src={image} alt={name} className="w-full h-48 object-cover" />
+
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
         <p className="text-sm text-gray-600 mt-1">{description}</p>
 
-        <div className="mt-2">
-          <label className="block text-sm font-medium text-gray-700">Weight:</label>
-          <select
-            value={selectedWeight}
-            onChange={(e) => setSelectedWeight(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 text-sm"
-          >
-            {weightKeys.map((weight) => (
-              <option key={weight} value={weight}>
-                {weight}
-              </option>
-            ))}
-          </select>
-        </div>
+        {weightKeys.length > 0 && (
+          <div className="mt-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Select Weight:
+            </label>
+            <select
+              value={selectedWeight}
+              onChange={(e) => setSelectedWeight(e.target.value)}
+              className="w-full border-gray-300 rounded-md text-sm py-1 px-2"
+            >
+              {weightKeys.map((w) => (
+                <option key={w} value={w}>
+                  {w}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div className="mt-3 flex justify-between items-center">
           <span className="text-emerald-600 font-bold text-lg">
