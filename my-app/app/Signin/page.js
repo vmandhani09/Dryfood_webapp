@@ -68,47 +68,47 @@ const Page = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {isRegistering && (
-  <>
-    <div className="flex gap-4">
-      <input
-        type="text"
-        name="firstName"
-        value={formData.firstName}
-        onChange={handleChange}
-        placeholder="First Name"
-        className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 min-w-0"
-        required
-        autoComplete="given-name"
-        aria-label="First Name"
-      />
-      <input
-        type="text"
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
-        placeholder="Last Name"
-        className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 min-w-0"
-        required
-        autoComplete="family-name"
-        aria-label="Last Name"
-      />
-    </div>
+            <>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="First Name"
+                  className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 min-w-0"
+                  required
+                  autoComplete="given-name"
+                  aria-label="First Name"
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                  className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 min-w-0"
+                  required
+                  autoComplete="family-name"
+                  aria-label="Last Name"
+                />
+              </div>
 
-    <input
-      type="tel"
-      name="mobile"
-      value={formData.mobile}
-      onChange={handleChange}
-      placeholder="Mobile Number"
-      className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
-      required
-      autoComplete="tel"
-      aria-label="Mobile Number"
-      pattern="^\+?\d{10,15}$"
-      title="Enter a valid mobile number"
-    />
-  </>
-)}
+              <input
+                type="tel"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                placeholder="Mobile Number"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                required
+                autoComplete="tel"
+                aria-label="Mobile Number"
+                pattern="^\+?\d{10,15}$"
+                title="Enter a valid mobile number"
+              />
+            </>
+          )}
 
           <input
             type="email"
