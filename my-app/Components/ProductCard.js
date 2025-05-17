@@ -1,3 +1,4 @@
+'use client';
 import slugify from 'slugify';
 import Link from 'next/link';
 const ProductCard = ({ product }) => {
