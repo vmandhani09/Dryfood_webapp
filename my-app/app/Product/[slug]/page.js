@@ -11,7 +11,7 @@ const ProductDetailPage = () => {
       <p className="mt-2">Product ID: {id}</p>
       {/* You can fetch product data here using the ID */}
     </div>
-  );
+  );  
 };
 
 export default ProductDetailPage;

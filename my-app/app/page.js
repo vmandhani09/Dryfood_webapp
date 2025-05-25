@@ -3,6 +3,16 @@ import React from 'react';
 import Link from 'next/link';
 import ProductCard from '@/Components/ProductCard';
 import products from '@/data/products';
+import Head from 'next/head';
+import Image from 'next/image';
+
+
+<Head>
+  <title>Krishna Naturals - Premium Dry Fruits</title>
+  <meta name="description" content="Pure, natural dry fruits from Krishna Naturals. Shop premium quality almonds, cashews, figs, and more!" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</Head>
+
 
 const featuredProducts = products.filter((p) => p.isFeatured);
 

@@ -13,7 +13,7 @@ const BulkOrderPage = () => {
         />
       </Head>
 
-      <div className="bg-gradient-to-r from-emerald-700 via-green-600 to-lime-500 text-white py-20 px-6 text-center shadow-md">
+    <div className="bg-gradient-to-r from-emerald-700 via-green-600 to-lime-500 text-white py-20 px-6 text-center shadow-md">
         <h1 className="text-5xl font-extrabold mb-3 drop-shadow-lg">Bulk Ordering</h1>
         <p className="text-lg opacity-90 tracking-wide">
           <span className="opacity-60 hover:opacity-100 transition-opacity cursor-default">Home</span> / Order
