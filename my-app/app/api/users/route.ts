@@ -20,6 +20,11 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ users: formattedUsers, status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Failed to fetch users", error: error.message }, { status: 500 });
+    console.error("Error fetching users:", error);
+
+    // ✅ Safely extract error message
+    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+
+    return NextResponse.json({ message: "Failed to fetch users", error: errorMessage }, { status: 500 });
   }
 }

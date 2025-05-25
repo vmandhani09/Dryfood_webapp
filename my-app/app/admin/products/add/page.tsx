@@ -22,49 +22,55 @@ export default function AddProductPage() {
 
   const [message, setMessage] = useState(""); // Success/Error Feedback
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+ 
 
-  const handleWeightChange = (index, e) => {
-    const { name, value } = e.target;
-    const newWeights = [...formData.weights];
-    newWeights[index][name] = value;
-    setFormData((prev) => ({ ...prev, weights: newWeights }));
-  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const { name, value } = e.target;
+  setFormData((prev) => ({ ...prev, [name]: value }));
+};
 
-  const addWeightOption = () => {
-    setFormData((prev) => ({
-      ...prev,
-      weights: [...prev.weights, { label: "", price: "" }],
-    }));
-  };
+const handleWeightChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+  const newWeights = [...formData.weights];
 
-  const removeWeightOption = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      weights: prev.weights.filter((_, i) => i !== index),
-    }));
-  };
+  if (name in newWeights[index]) {
+    newWeights[index] = { ...newWeights[index], [name]: value }; // ✅ Allows dynamic indexing
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("Saving product...");
+  setFormData((prev) => ({ ...prev, weights: newWeights }));
+};
+const addWeightOption = () => {
+  setFormData((prev) => ({
+    ...prev,
+    weights: [...prev.weights, { label: "", price: "" }],
+  }));
+};
 
-    const response = await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+const removeWeightOption = (index: number) => {
+  setFormData((prev) => ({
+    ...prev,
+    weights: prev.weights.filter((_, i) => i !== index),
+  }));
+};
 
-    if (response.ok) {
-      setMessage("✅ Product added successfully!");
-      setTimeout(() => router.push("/admin/products"), 1500);
-    } else {
-      setMessage("❌ Failed to add product.");
-    }
-  };
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setMessage("Saving product...");
+
+  const response = await fetch("/api/products", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+
+  if (response.ok) {
+    setMessage("✅ Product added successfully!");
+    setTimeout(() => router.push("/admin/products"), 1500);
+  } else {
+    setMessage("❌ Failed to add product.");
+  }
+};
+
 
   return (
     <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-10 mt-6">

@@ -14,8 +14,13 @@ export async function GET() {
 
     return NextResponse.json({ products }, { status: 200 });
   } catch (error) {
+    console.error("Error fetching products:", error);
+
+    // ✅ Check if error is an instance of Error before accessing `.message`
+    const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+
     return NextResponse.json(
-      { message: "Failed to fetch products", error: error.message },
+      { message: "Failed to fetch products", error: errorMessage },
       { status: 500 }
     );
   }

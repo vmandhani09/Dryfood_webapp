@@ -1,9 +1,9 @@
 
-import { dbConnect } from "@lib/dbConnect";
+import { dbConnect } from "../../../../lib/dbConnect";
 import bcrypt from "bcryptjs";
 import React from "react";
 import { NextRequest } from "next/server";
-import User from "@models/User";
+import User from "../../../../models/User";
 export async function POST(req: NextRequest) {
   await dbConnect();
   const { email, password } = await req.json();

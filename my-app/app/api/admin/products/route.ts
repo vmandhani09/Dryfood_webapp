@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { dbConnect } from "@lib/dbConnect";
-import Product, { IProduct } from "@models/Product";
+import { dbConnect } from "../../../../lib/dbConnect";
+import Product, { IProduct } from "../../../../models/Product";
 import mongoose, { Model } from "mongoose";
 
 
@@ -21,7 +21,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ message: "Product added successfully!", product: newProduct }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ message: "Failed to add product", error: error.message }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ message: "Failed to add product", error: errorMessage }, { status: 500 });
   }
 }
 
@@ -40,6 +41,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ products, total, page, limit }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Failed to fetch products", error: error.message }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ message: "Failed to fetch products", error: errorMessage }, { status: 500 });
   }
 }

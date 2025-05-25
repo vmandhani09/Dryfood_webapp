@@ -1,12 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ProductCard from "../../../Components/ProductCard"; // Adjust path if needed
+import ProductCard from "../../../Components/ProductCard";
 import React from "react";
+
+type Product = {
+  _id: string;
+  name: string;
+  brand?: string;
+  category: string;
+  price: number;
+  image: string;
+};
+
 const categories = ["All", "Nuts", "Dryfruits", "Seeds", "Spices"];
 
 const ShopPage = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,7 +49,6 @@ const ShopPage = () => {
     <div className="p-6 max-w-7xl mx-auto min-h-screen">
       <h1 className="text-3xl font-extrabold text-emerald-700 mb-6">Shop</h1>
 
-      {/* Search Bar */}
       <input
         type="text"
         placeholder="Search for products..."
@@ -48,7 +57,6 @@ const ShopPage = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
-      {/* Category Tabs */}
       <div className="flex flex-wrap gap-3 mb-8">
         {categories.map((cat) => (
           <button
@@ -65,7 +73,6 @@ const ShopPage = () => {
         ))}
       </div>
 
-      {/* Product Cards Grid */}
       {loading ? (
         <p className="text-center text-lg text-gray-600">Loading products...</p>
       ) : (

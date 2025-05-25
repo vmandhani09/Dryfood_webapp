@@ -1,18 +1,25 @@
-"use client";
-
+'use client';
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import React from "react";
 
+// ✅ Define Product type to avoid 'never' errors
+type Product = {
+  _id: string;
+  name: string;
+  category: string;
+  weights?: { price: number }[];
+};
+
 const AdminProductsPage = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]); // ✅ Explicit type for state
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/products")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products);
+        setProducts(data.products); // ✅ Ensure fetched data matches Product type
         setLoading(false);
       })
       .catch((error) => {

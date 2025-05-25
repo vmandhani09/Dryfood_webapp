@@ -4,19 +4,33 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import React from "react";
 
+type WeightOption = {
+  label: string;
+  price: number;
+};
+
+type Product = {
+  _id: string;
+  name: string;
+  image?: string;
+  description?: string;
+  weights: WeightOption[];
+  category: string;
+  brand?: string;
+  stockQuantity: number;
+};
+
 const ProductDetailsPage = () => {
   const { slug } = useParams();
-
-  console.log("Extracted Slug:", slug);
-  const [product, setProduct] = useState(null);
-  const [selectedWeight, setSelectedWeight] = useState(null);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [selectedWeight, setSelectedWeight] = useState<WeightOption | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`/api/products/${slug}`)
       .then((res) => res.json())
       .then((data) => {
-        setProduct(data.product); // ✅ Accessing product inside data.product
+        setProduct(data.product);
         setSelectedWeight(data.product?.weights?.[0] || null);
         setLoading(false);
       })
@@ -40,7 +54,6 @@ const ProductDetailsPage = () => {
       <img src={product.image ?? "/placeholder.png"} alt={product.name} className="w-full h-64 object-cover rounded-lg mt-4" />
       <p className="text-lg text-gray-600 mt-4">{product.description ?? "No description available"}</p>
 
-      {/* Weight Selection */}
       {product.weights?.length > 0 && (
         <div className="mt-6">
           <label className="font-semibold text-gray-700">Choose Weight:</label>
@@ -49,7 +62,7 @@ const ProductDetailsPage = () => {
             value={selectedWeight?.label}
             onChange={(e) => {
               const selected = product.weights.find((w) => w.label === e.target.value);
-              setSelectedWeight(selected);
+              setSelectedWeight(selected || null);
             }}
           >
             {product.weights.map((weight) => (
@@ -64,7 +77,6 @@ const ProductDetailsPage = () => {
         </div>
       )}
 
-      {/* Other Product Information */}
       <div className="mt-6 text-gray-700">
         <p><strong>Category:</strong> {product.category}</p>
         <p><strong>Brand:</strong> {product.brand ?? "N/A"}</p>

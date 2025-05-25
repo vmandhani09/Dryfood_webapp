@@ -3,10 +3,20 @@
 import { useEffect, useState } from "react";
 import React from "react";
 
+
+
 export default function UsersPage() {
-  const [users, setUsers] = useState([]);
+
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  type User = {
+  _id: string;
+  fullName: string;
+  email: string;
+  role: string;
+  createdAt?: string;
+};
 
   useEffect(() => {
     fetch("/api/users")
