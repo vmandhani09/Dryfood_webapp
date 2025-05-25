@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import FAQSection from '@/Components/FAQSection';
+import FAQSection from '../../../Components/FAQSection';
 
 const BulkOrderPage = () => {
   return (

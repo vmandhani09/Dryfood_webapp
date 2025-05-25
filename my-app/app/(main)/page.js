@@ -1,10 +1,11 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import ProductCard from '@/Components/ProductCard';
-import products from '@/data/products';
+
 import Head from 'next/head';
 import Image from 'next/image';
+import ProductCard from '../../Components/ProductCard';
+import { products } from '../../data/products';
 
 
 <Head>
