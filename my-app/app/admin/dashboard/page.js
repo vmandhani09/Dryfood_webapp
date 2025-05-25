@@ -1,27 +1,45 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+// Admin Dashboard Cards Component
+const DashboardCard = ({ title, description, icon, onClick }) => (
+  <div
+    className="bg-white shadow rounded-lg p-6 hover:shadow-md cursor-pointer transition"
+    onClick={onClick}
+    aria-label={title}
+  >
+    <h2 className="text-xl font-semibold mb-2 flex items-center gap-2">
+      {icon} {title}
+    </h2>
+    <p className="text-gray-600">{description}</p>
+  </div>
+);
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [admin, setAdmin] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('admin-token');
+    const token = localStorage.getItem("admin-token");
+
     if (!token) {
-      router.push('/admin/login');
+      router.push("/admin/login");
       return;
     }
 
-    // (Optional) You can verify token with backend here
-    setAdmin({ name: 'Admin User' }); // dummy name, replace with real fetched data
+    // TODO: Verify token with backend API
+    setAdmin({ name: "Admin User" });
+    setLoading(false);
   }, []);
 
-  if (!admin) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p>Loading...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-emerald-600"></div>
+        <p className="ml-3 text-emerald-700">Authenticating...</p>
       </div>
     );
   }
@@ -31,48 +49,39 @@ export default function AdminDashboard() {
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
 
       <div className="grid gap-6 md:grid-cols-3">
-        <div
-          className="bg-white shadow rounded-lg p-6 hover:shadow-md cursor-pointer transition"
-          onClick={() => router.push('/admin/products/add')}
-        >
-          <h2 className="text-xl font-semibold mb-2">➕ Add Product</h2>
-          <p className="text-gray-600">Create a new product listing for your store.</p>
-        </div>
-
-        <div
-          className="bg-white shadow rounded-lg p-6 hover:shadow-md cursor-pointer transition"
-          onClick={() => router.push('/admin/products')}
-        >
-          <h2 className="text-xl font-semibold mb-2">🛍️ Manage Products</h2>
-          <p className="text-gray-600">Edit or remove existing products.</p>
-        </div>
-
-        <div
-          className="bg-white shadow rounded-lg p-6 hover:shadow-md cursor-pointer transition"
-          onClick={() => router.push('/admin/orders')}
-        >
-          <h2 className="text-xl font-semibold mb-2">📦 Manage Orders</h2>
-          <p className="text-gray-600">View and manage customer orders.</p>
-        </div>
-
-        <div
-          className="bg-white shadow rounded-lg p-6 hover:shadow-md cursor-pointer transition"
-          onClick={() => router.push('/admin/users')}
-        >
-          <h2 className="text-xl font-semibold mb-2">👥 View Users</h2>
-          <p className="text-gray-600">Check all registered users.</p>
-        </div>
-
-        <div
-          className="bg-white shadow rounded-lg p-6 hover:shadow-md cursor-pointer transition"
+        <DashboardCard
+          title="➕ Add Product"
+          description="Create a new product listing for your store."
+          icon="🆕"
+          onClick={() => router.push("/admin/products/add")}
+        />
+        <DashboardCard
+          title="🛍️ Manage Products"
+          description="Edit or remove existing products."
+          icon="📦"
+          onClick={() => router.push("/admin/products")}
+        />
+        <DashboardCard
+          title="📦 Manage Orders"
+          description="View and manage customer orders here."
+          icon="📋"
+          onClick={() => router.push("/admin/orders")}
+        />
+        <DashboardCard
+          title="👥 View Users"
+          description="Check all registered users."
+          icon="👤"
+          onClick={() => router.push("/admin/users")}
+        />
+        <DashboardCard
+          title="🚪 Logout"
+          description="End your session securely."
+          icon="🔐"
           onClick={() => {
-            localStorage.removeItem('admin-token');
-            router.push('/admin/login');
+            localStorage.removeItem("admin-token");
+            router.push("/admin/login");
           }}
-        >
-          <h2 className="text-xl font-semibold mb-2">🚪 Logout</h2>
-          <p className="text-gray-600">End your session securely.</p>
-        </div>
+        />
       </div>
     </div>
   );
