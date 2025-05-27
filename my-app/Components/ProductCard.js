@@ -1,24 +1,46 @@
-import React from 'react';
+"use client";
 
-const ProductCard = ({ name, price, image, description }) => {
+import slugify from "slugify";
+import Link from "next/link";
+
+const ProductCard = ({ product }) => {
+  if (!product) return null; // ✅ Prevents rendering if product is missing
+
+  const slug = product.slug ?? slugify(product.name, { lower: true });
+
   return (
-    <div className="max-w-xs bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-      <img 
-        className="w-full h-48 object-cover" 
-        src={image} 
-        alt={name} 
-      />
-      <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
-        <p className="text-sm text-gray-600 mt-1">{description}</p>
-        <div className="mt-3 flex justify-between items-center">
-          <span className="text-emerald-600 font-bold text-lg">₹{price}</span>
-          <button className="bg-emerald-500 text-white text-sm px-4 py-2 rounded hover:bg-emerald-600 transition">
-            Add to Cart
-          </button>
-        </div>
+    <Link href={`/Shop/products/${slug}`} className="block">
+      <div className="border rounded-lg p-4 hover:shadow-lg transition-transform hover:scale-105 bg-white">
+        {/* ✅ Ensuring Image Has Proper Accessibility & Fallback */}
+        <img
+          src={product.image ?? "/placeholder.png"}
+          alt={product.name}
+          className="h-40 w-full object-contain rounded-md"
+          loading="lazy"
+        />
+
+        {/* ✅ Ensuring Proper Title Formatting */}
+        <h3 className="font-semibold mt-2 text-xl text-emerald-700">{product.name}</h3>
+        <p className="text-sm text-gray-500">{product.description ?? "No description available"}</p>
+
+        {/* ✅ Handling Multiple Weights & Prices */}
+        {product.weights?.length > 0 ? (
+          <p className="mt-2 font-bold text-green-600">
+            Starting at ₹{product.weights[0]?.price ?? "N/A"}
+          </p>
+        ) : (
+          <p className="mt-2 text-red-500 font-bold">Price unavailable</p>
+        )}
+
+        {/* ✅ Additional Product Info */}
+        <p className="text-sm text-gray-600 mt-2">
+          <strong>Category:</strong> {product.category}
+        </p>
+        <p className="text-sm text-gray-600">
+          <strong>Stock:</strong> {product.stockQuantity} available
+        </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
