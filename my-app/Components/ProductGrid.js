@@ -3,9 +3,9 @@ import ProductCard from '@/Components/ProductCard';
 
 const products = [
   {
-    name: "Ajneer (Figs)",
+    name: "Anjeer (Figs)",
     price: 350,
-    image: "/products/anj   eer.png",
+    image: "/products/anjeer.pnghttps://www.houseofrasda.com/cdn/shop/products/Dry_Figs_Premium_Anjeer.png?v=1747992847",
     description: "Premium quality dried figs for daily health and energy."
   },
   {
